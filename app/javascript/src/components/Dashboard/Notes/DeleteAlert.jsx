@@ -5,19 +5,14 @@ import PropTypes from "prop-types";
 
 import notesApi from "apis/notes";
 
-const DeleteAlert = ({
-  refetch,
-  onClose,
-  selectedNoteIds,
-  setSelectedNoteIds,
-}) => {
+const DeleteAlert = ({ refetch, onClose, selectedNote, setSelectedNote }) => {
   const [deleting, setDeleting] = useState(false);
   const handleDelete = async () => {
     try {
       setDeleting(true);
-      await notesApi.destroy({ ids: selectedNoteIds });
+      await notesApi.destroy({ ids: [selectedNote.id] });
       onClose();
-      setSelectedNoteIds([]);
+      setSelectedNote({});
       refetch();
     } catch (error) {
       logger.error(error);
@@ -31,7 +26,7 @@ const DeleteAlert = ({
       onSubmit={handleDelete}
       onClose={onClose}
       message="Are you sure you want to continue? This cannot be undone."
-      title={`Delete ${selectedNoteIds.length > 1 ? "notes" : "note"}?`}
+      title="Delete note?"
       isSubmitting={deleting}
     />
   );
@@ -40,8 +35,8 @@ const DeleteAlert = ({
 DeleteAlert.propTypes = {
   refetch: PropTypes.func,
   onClose: PropTypes.func,
-  selectedNoteIds: PropTypes.array,
-  setSelectedNoteIds: PropTypes.func,
+  selectedNote: PropTypes.object,
+  setSelectedNote: PropTypes.func,
 };
 
 export default DeleteAlert;

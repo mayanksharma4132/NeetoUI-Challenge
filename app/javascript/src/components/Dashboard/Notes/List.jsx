@@ -10,11 +10,10 @@ const List = ({
   setShowEditNotePane,
   setSelectedNote,
   setShowDeleteAlert,
-  setSelectedNoteIds,
   notes = [],
 }) => {
-  const handleDelete = id => {
-    setSelectedNoteIds([id]);
+  const handleDelete = note => {
+    setSelectedNote(note);
     setShowDeleteAlert(true);
   };
 
@@ -32,7 +31,7 @@ const List = ({
               <Typography style="h4">{note.title}</Typography>
               <Dropdown buttonStyle="text" icon={MenuVertical}>
                 <li onClick={() => handleEdit(note)}>Edit</li>
-                <li onClick={() => handleDelete(note.id)}>Delete</li>
+                <li onClick={() => handleDelete(note)}>Delete</li>
               </Dropdown>
             </div>
             <Typography style="body2" weight="light">
@@ -62,7 +61,6 @@ List.propTypes = {
   setShowEditNotePane: PropTypes.func,
   setSelectedNote: PropTypes.func,
   setShowDeleteAlert: PropTypes.func,
-  setSelectedNoteIds: PropTypes.func,
   notes: PropTypes.array,
 };
 
