@@ -11,6 +11,7 @@ import DeleteAlert from "./DeleteAlert";
 import List from "./List";
 import Menu from "./MenuBar";
 import NewNotePane from "./Pane/CreateNote";
+import EditNotePane from "./Pane/EditNote";
 
 const Notes = () => {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,8 @@ const Notes = () => {
   const [selectedNoteIds, setSelectedNoteIds] = useState([]);
   const [notes, setNotes] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
+  const [showEditNotePane, setShowEditNotePane] = useState(false);
+  const [selectedNote, setSelectedNote] = useState({});
 
   useEffect(() => {
     fetchNotes();
@@ -66,10 +69,11 @@ const Notes = () => {
         {getFilteredNotes().length ? (
           <>
             <List
+              setShowEditNotePane={setShowEditNotePane}
+              setSelectedNote={setSelectedNote}
               setShowDeleteAlert={setShowDeleteAlert}
               setSelectedNoteIds={setSelectedNoteIds}
               notes={getFilteredNotes()}
-              fetchNotes={fetchNotes}
             />
           </>
         ) : (
@@ -85,6 +89,12 @@ const Notes = () => {
           showPane={showNewNotePane}
           setShowPane={setShowNewNotePane}
           fetchNotes={fetchNotes}
+        />
+        <EditNotePane
+          showPane={showEditNotePane}
+          setShowPane={setShowEditNotePane}
+          fetchNotes={fetchNotes}
+          note={selectedNote}
         />
         {showDeleteAlert && (
           <DeleteAlert

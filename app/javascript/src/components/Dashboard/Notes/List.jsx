@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { MenuVertical, Info } from "neetoicons";
 import { Typography, Dropdown, Label, Tag, Avatar } from "neetoui";
 import PropTypes from "prop-types";
 
 import { getTimeSince } from "./helpers";
-import EditNotePane from "./Pane/EditNote";
 
 const List = ({
+  setShowEditNotePane,
+  setSelectedNote,
   setShowDeleteAlert,
   setSelectedNoteIds,
   notes = [],
-  fetchNotes,
 }) => {
-  const [showEditNote, setShowEditNote] = useState(false);
-  const [selectedNote, setSelectedNote] = useState({});
-
   const handleDelete = id => {
     setSelectedNoteIds([id]);
     setShowDeleteAlert(true);
@@ -23,7 +20,7 @@ const List = ({
 
   const handleEdit = note => {
     setSelectedNote(note);
-    setShowEditNote(true);
+    setShowEditNotePane(true);
   };
 
   return (
@@ -57,21 +54,16 @@ const List = ({
           </div>
         ))}
       </div>
-      <EditNotePane
-        showPane={showEditNote}
-        setShowPane={setShowEditNote}
-        fetchNotes={fetchNotes}
-        note={selectedNote}
-      />
     </>
   );
 };
 
 List.propTypes = {
+  setShowEditNotePane: PropTypes.func,
+  setSelectedNote: PropTypes.func,
   setShowDeleteAlert: PropTypes.func,
   setSelectedNoteIds: PropTypes.func,
   notes: PropTypes.array,
-  fetchNotes: PropTypes.func,
 };
 
 export default List;
