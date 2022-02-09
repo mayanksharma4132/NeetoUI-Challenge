@@ -10,6 +10,8 @@ import EmptyState from "components/Common/EmptyState";
 import DeleteAlert from "./DeleteAlert";
 import MenuBar from "./MenuBar";
 import { fetchContacts } from "./mocks";
+import CreateContactPane from "./Pane/CreateContact";
+import EditContactPane from "./Pane/EditContact";
 import Table from "./Table";
 
 const Contacts = () => {
@@ -19,6 +21,8 @@ const Contacts = () => {
   const [contacts, setContacts] = useState([]);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [selectedContact, setSelectedContact] = useState({});
+  const [showNewContactPane, setShowNewContactPane] = useState(false);
+  const [showEditContactPane, setShowEditContactPane] = useState(false);
 
   useEffect(() => fetchContact());
 
@@ -51,7 +55,13 @@ const Contacts = () => {
             value: searchTerm,
             onChange: e => setSearchTerm(e.target.value),
           }}
-          actionBlock={<Button label="Add New Contact" icon={Plus} />}
+          actionBlock={
+            <Button
+              onClick={() => setShowNewContactPane(true)}
+              label="Add New Contact"
+              icon={Plus}
+            />
+          }
           menuBarToggle={() => setShowMenu(!showMenu)}
         />
         {getFilteredContacts().length > 0 ? (
@@ -59,6 +69,7 @@ const Contacts = () => {
             <Table
               setShowDeleteAlert={setShowDeleteAlert}
               setSelectedContact={setSelectedContact}
+              setShowEditContactPane={setShowEditContactPane}
               rowData={getFilteredContacts()}
             />
           </>
@@ -69,6 +80,17 @@ const Contacts = () => {
             subtitle="Add your contacts to send customized emails to them."
           />
         )}
+        <CreateContactPane
+          fetchContacts={fetchContact}
+          showPane={showNewContactPane}
+          setShowPane={setShowNewContactPane}
+        />
+        <EditContactPane
+          fetchContacts={fetchContact}
+          showPane={showEditContactPane}
+          setShowPane={setShowEditContactPane}
+          contact={selectedContact}
+        />
         {showDeleteAlert && (
           <DeleteAlert
             refresh={fetchContact}

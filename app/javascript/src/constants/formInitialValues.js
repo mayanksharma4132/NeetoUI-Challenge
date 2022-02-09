@@ -19,4 +19,10 @@ export default {
     assignedContact: null,
     tags: null,
   },
+  contactForm: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: null,
+  },
 };
