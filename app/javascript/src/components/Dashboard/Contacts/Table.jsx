@@ -3,10 +3,20 @@ import React from "react";
 import { MenuVertical } from "neetoicons";
 import { Table as NeetoTable, Avatar, Typography, Dropdown } from "neetoui";
 
-const Table = ({ setShowDeleteAlert, setSelectedContact, rowData }) => {
+const Table = ({
+  setShowDeleteAlert,
+  setShowEditContactPane,
+  setSelectedContact,
+  rowData,
+}) => {
   const handleDelete = contact => {
     setSelectedContact(contact);
     setShowDeleteAlert(true);
+  };
+
+  const handleEdit = contact => {
+    setSelectedContact(contact);
+    setShowEditContactPane(true);
   };
 
   const columnData = [
@@ -19,12 +29,12 @@ const Table = ({ setShowDeleteAlert, setSelectedContact, rowData }) => {
           <Avatar
             className="m-2"
             user={{
-              name: row.name,
+              name: `${row.firstName} ${row.lastName}`,
             }}
           />
-          <div className="m-2 my-4">
-            <Typography style="h5">{row.name}</Typography>
-            <Typography style="body3">{row.role}</Typography>
+          <div className="m-2">
+            <Typography style="h5">{`${row.firstName} ${row.lastName}`}</Typography>
+            <Typography style="body3">{row.role.value}</Typography>
           </div>
         </div>
       ),
@@ -45,7 +55,7 @@ const Table = ({ setShowDeleteAlert, setSelectedContact, rowData }) => {
       title: "action",
       render: (text, row) => (
         <Dropdown icon={MenuVertical} buttonStyle="text">
-          <li>Edit</li>
+          <li onClick={() => handleEdit(row)}>Edit</li>
           <li onClick={() => handleDelete(row)}>Delete</li>
         </Dropdown>
       ),

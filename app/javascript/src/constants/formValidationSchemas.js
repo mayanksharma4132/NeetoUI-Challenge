@@ -42,4 +42,16 @@ export default {
       .nullable()
       .required("Tag is required"),
   }),
+  contactsForm: yup.object().shape({
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required("Last Name is required"),
+    email: yup.string().required("Email is required"),
+    role: yup
+      .object({
+        label: yup.string(),
+        value: yup.string(),
+      })
+      .nullable()
+      .required("Role is required"),
+  }),
 };
