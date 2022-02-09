@@ -51,7 +51,7 @@ const Notes = () => {
       <Menu showMenu={showMenu} />
       <Container>
         <Header
-          title="Notes"
+          title="All Notes"
           actionBlock={
             <Button
               onClick={() => setShowNewNotePane(true)}

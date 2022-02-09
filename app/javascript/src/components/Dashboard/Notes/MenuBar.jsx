@@ -7,11 +7,10 @@ import PropTypes from "prop-types";
 
 const Menu = ({ showMenu }) => (
   <MenuBar showMenu={showMenu} title="Notes">
-    <MenuBar.Block label="All" count={13} active />
+    <MenuBar.Block active label="All" count={13} />
     <MenuBar.Block label="Users" count={2} />
     <MenuBar.Block label="Leads" count={7} />
     <MenuBar.Block label="Visitors" count={4} />
-
     <MenuBar.SubTitle
       iconProps={[
         {

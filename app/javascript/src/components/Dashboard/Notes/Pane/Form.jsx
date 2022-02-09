@@ -39,31 +39,31 @@ export default function NoteForm({ onClose, refetch, note, isEdit }) {
         <Form className="w-full">
           <Pane.Body className="space-y-6">
             <Input
+              required
               label="Title"
               name="title"
               className="w-full flex-grow-0"
-              required
             />
             <Textarea
+              required
               label="Description"
               name="description"
               className="w-full flex-grow-0"
               rows={4}
-              required
             />
             <Select
+              required
               className="w-full flex-grow-0"
               label="Assigned Contact"
               name="assignedContact"
               options={ASSIGNED_CONTACT}
-              required
             />
             <Select
+              required
               className="w-full"
               label="Tags"
               name="tags"
               options={TAGS}
-              required
             />
           </Pane.Body>
           <Pane.Footer>

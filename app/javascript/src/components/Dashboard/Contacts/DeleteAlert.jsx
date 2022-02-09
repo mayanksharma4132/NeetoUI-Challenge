@@ -1,42 +1,41 @@
 import React, { useState } from "react";
 
 import { Alert } from "neetoui";
-import PropTypes from "prop-types";
 
-import notesApi from "apis/notes";
+import { deleteContact } from "./mocks";
 
-const DeleteAlert = ({ refetch, onClose, selectedNote, setSelectedNote }) => {
+const DeleteAlert = ({
+  refresh,
+  onClose,
+  selectedContact,
+  setSelectedContact,
+}) => {
   const [deleting, setDeleting] = useState(false);
-  const handleDelete = async () => {
+
+  const handleDelete = () => {
     try {
       setDeleting(true);
-      await notesApi.destroy(selectedNote.id);
+      deleteContact(selectedContact.id);
+      setSelectedContact({});
       onClose();
-      setSelectedNote({});
-      refetch();
+      refresh();
     } catch (error) {
       logger.error(error);
     } finally {
       setDeleting(false);
     }
   };
+
   return (
     <Alert
       isOpen
       onSubmit={handleDelete}
       onClose={onClose}
       message="Are you sure you want to continue? This cannot be undone."
-      title="Delete note?"
+      title="Delete contact?"
       isSubmitting={deleting}
     />
   );
-};
-
-DeleteAlert.propTypes = {
-  refetch: PropTypes.func,
-  onClose: PropTypes.func,
-  selectedNote: PropTypes.object,
-  setSelectedNote: PropTypes.func,
 };
 
 export default DeleteAlert;

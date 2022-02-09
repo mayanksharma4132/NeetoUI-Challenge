@@ -1,10 +1,12 @@
 import React from "react";
 
+import * as dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { MenuVertical, Info } from "neetoicons";
 import { Typography, Dropdown, Label, Tag, Avatar } from "neetoui";
 import PropTypes from "prop-types";
 
-import { getTimeSince } from "./helpers";
+dayjs.extend(relativeTime);
 
 const List = ({
   setShowEditNotePane,
@@ -42,7 +44,7 @@ const List = ({
               <Tag label="Getting Started" />
               <div className="flex">
                 <Info className="m-1 h-4 w-4" />
-                <Label>Created {getTimeSince(note.created_at)}</Label>
+                <Label>Created {dayjs(note.created_at).fromNow()}</Label>
                 <Avatar
                   user={{ name: "Yedhin Kizhakkethara" }}
                   className="mx-2"
